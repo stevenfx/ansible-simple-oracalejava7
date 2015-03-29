@@ -1,0 +1,19 @@
+---
+- name: Install PPA for oracle.
+  apt_repository: repo='ppa:webupd8team/java'
+  sudo: True
+
+- name: Automatically select the Oracle License
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+
+- name: Apt update
+  apt: update_cache=yes
+  sudo: True
+
+- name: Insatll Oracle JDK 7.
+  apt: name=oracle-java7-installer state=present
+  sudo: True
+
+- name: Set Oracle JDK 7 as default.
+  apt: name=oracle-java7-set-default state=present
+  sudo: True
